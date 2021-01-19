@@ -1,0 +1,30 @@
+How to restart Jupyter Lab on AWS EC2
+
+1. restart EC2 from aws, checking the security group policy to allow the ssh and tcp
+
+2. because jupyter lab is installed, you will restart jupyter lab by doing:
+
+# start jupyter lab in the backgroud
+screen jupyter lab
+
+Ctrl + A + D to detach the screen
+screen -r to reattach
+
+3. configure jupyter to allow external connection
+
+By default, Jupyter Notebook only accepts connections from localhost
+configured the jupyter_notebook_config.py file to allow external connections
+
+To create a jupyter_notebook_config.py file, with all the defaults commented out, you can use the following command line:
+
+$ jupyter notebook --generate-config
+
+By modifying the NotebookApp.allow_origin option from the default ' ' to '*', you allow Jupyter to be accessed externally.
+
+c.NotebookApp.allow_origin = '*' #allow all origins
+
+You'll also need to change the IPs that the notebook will listen on:
+
+c.NotebookApp.ip = '0.0.0.0' # listen on all IPs 
+
+4. enter the URL generated from step 2. You can access it from your browser.
